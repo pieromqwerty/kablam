@@ -1,103 +1,33 @@
-![Kaboom Logo](kaboom.png)
+![Kablam Logo](kablam.png)
 
-[**Kaboom.js**](https://kaboomjs.com/) is a JavaScript library that helps you make games fast and fun!
+[**Kablam.js**](https://kablamjs.com/) is a fork of [Kaboom.js](https://kaboomjs.com/)
 
-Start playing around with it in the [Kaboom Playground](https://kaboomjs.com/play)
+This fork has some principles which really differentiate it from the main Kaboom library:
+- Improved Pysics Engine:
+    - The physics/collisions are a bit dodgy on Kaboom, which is the main reason I made this fork.
+- No NFT Stuff:
+    - They aren't good for the environment, I don't like them, on top of the fact that their use is limited, at most.
+- Separated assets, lubrarym and everything else:
+    - In kaboom, the library, website, demos, and assets are all in one massive repository. If it isn't obvious, this is a bit of an issue in terms of performance, as downloading a whole megabyte to a machine to run a simple game is very :|.
+- Better FPS:
+    - This is on the backburner right now, but general performance improvements are to come, I just need to figure out in what areas these will occur. 
+- Greater Control:
+    - This library gives you greater control over the elements at hand. No more creating something and theres no way to get resulting element. For example, you'll actually be able to get the audio context from a played audio file.
 
 ## Examples
 
-```js
-// initialize context
-kaboom();
-
-// load a sprite called "froggy"
-loadSprite("froggy", "sprites/froggy.png");
-
-// compose the player game object from multiple components and add it to the game
-const froggy = add([
-    sprite("bean"),
-    pos(80, 40),
-    area(),
-    body(),
-]);
-
-// press space to jump
-onKeyPress("space", () => {
-    // this method is provided by the "body" component above
-    froggy.jump();
-});
-```
-
-Kaboom uses a powerful component system to compose game objects and behaviors.
-
-```js
-// add a game obj to the scene from a list of component
-const player = add([
-    // it renders as a sprite
-    sprite("bean"),
-    // it has a position
-    pos(100, 200),
-    // it has a collider
-    area(),
-    // it is a physical body which will respond to physics
-    body(),
-    // it has 8 health
-    health(8),
-    // or give it tags for easier group behaviors
-    "player",
-    "friendly",
-    // plain objects fields are directly assigned to the game obj
-    {
-        dir: vec2(-1, 0),
-        dead: false,
-        speed: 240,
-    },
-]);
-```
-
-Blocky imperative syntax for describing behaviors
-
-```js
-// .onCollide() comes from "area" component
-player.onCollide("enemy", () => {
-    // .hurt() comes from "health" component
-    player.hurt(1)
-});
-
-// check fall death
-player.onUpdate(() => {
-    if (player.pos.y >= height()) {
-        destroy(player);
-        gameOver();
-    }
-});
-
-// if 'player' onCollide with any object with tag "enemy", run the callback
-player.onCollide("enemy", () => {
-    player.hp -= 1;
-});
-
-// all objects with tag "enemy" will move towards 'player' every frame
-onUpdate("enemy", (e) => {
-    e.move(player.pos.sub(e.pos).unit().scale(e.speed));
-});
-
-// move up 100 pixels per second every frame when "w" key is held down
-onKeyDown("w", () => {
-    player.move(0, 100);
-});
-```
+> I've removed the examples section from the readme of this fork, mainly as I feel it will become neglected, along with the fact that any Kaboom.js code should work A-OK.
 
 ## Usage
 
 ### NPM
 
 ```sh
-$ npm install kaboom
+$ npm install kablam
 ```
 
 ```js
-import kaboom from "kaboom";
+import kaboom from "kablam";
 
 kaboom();
 
@@ -110,7 +40,7 @@ add([
 also works with CommonJS
 
 ```js
-const kaboom = require("kaboom");
+const kaboom = require("kablam");
 ```
 
 Note that you'll need to use a bundler like `esbuild` or `webpack` to use Kaboom with NPM
@@ -120,7 +50,7 @@ Note that you'll need to use a bundler like `esbuild` or `webpack` to use Kaboom
 This exports a global `kaboom` function
 
 ```html
-<script src="https://unpkg.com/kaboom/dist/kaboom.js"></script>
+<script src="https://unpkg.com/kablam/dist/kablam.js"></script>
 <script>
 kaboom();
 </script>
@@ -130,7 +60,7 @@ or use with es modules
 
 ```html
 <script type="module">
-import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+import kaboom from "https://unpkg.com/kablam/dist/kablam.mjs";
 kaboom();
 </script>
 ```
@@ -149,11 +79,7 @@ also check out [CONTRIBUTION.md](CONTRIBUTING.md)
 
 ## Community
 
-[Github Discussions](https://github.com/replit/kaboom/discussions)
-
-[Discord](https://discord.gg/aQ6RuQm3TF)
-
-[Twitter](https://twitter.com/Kaboomjs)
+[Github Discussions](https://github.com/pieromqwerty/kablam/discussions)
 
 ### Misc
 
